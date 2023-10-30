@@ -37,32 +37,18 @@ class TrainDispatchSystem {
 
     private void handleUserChoice(int choice) {
         switch (choice) {
-            case 1:
-                displayTrainDepartures();
-                break;
-            case 2:
-                addNewTrainDeparture();
-                break;
-            case 3:
-                assignTrackToTrain();
-                break;
-            case 4:
-                addDelayToTrain();
-                break;
-            case 5:
-                searchByTrainNumber();
-                break;
-            case 6:
-                searchByDestination();
-                break;
-            case 7:
-                updateCurrentTime();
-                break;
-            case 8:
+            case 1 -> displayTrainDepartures();
+            case 2 -> addNewTrainDeparture();
+            case 3 -> assignTrackToTrain();
+            case 4 -> addDelayToTrain();
+            case 5 -> searchByTrainNumber();
+            case 6 -> searchByDestination();
+            case 7 -> updateCurrentTime();
+            case 8 -> {
                 System.out.println("Exiting the application.");
                 System.exit(0);
-            default:
-                System.out.println("Invalid choice. Please try again.");
+            }
+            default -> System.out.println("Invalid choice. Please try again.");
         }
     }
 
@@ -87,6 +73,7 @@ class TrainDispatchSystem {
         String trainNumber = scanner.nextLine();
         System.out.print("Enter destination: ");
         String destination = scanner.nextLine();
+
         String[] timeParts = departureTime.split(":");
         int hours = Integer.parseInt(timeParts[0]);
         int minutes = Integer.parseInt(timeParts[1]);
