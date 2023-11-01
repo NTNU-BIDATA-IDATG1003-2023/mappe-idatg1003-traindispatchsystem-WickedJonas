@@ -1,8 +1,10 @@
 package edu.ntnu.stud;
 
+import java.util.Scanner;
+
 /**
  * Train departure app, used to manage and control train departures over the course of a day.
- * @version 1.0.1
+ * @version 1.0.2
  * @author Jonas Ingebo, BIDATA 1
  * @since 5 Okt, 2023
  */

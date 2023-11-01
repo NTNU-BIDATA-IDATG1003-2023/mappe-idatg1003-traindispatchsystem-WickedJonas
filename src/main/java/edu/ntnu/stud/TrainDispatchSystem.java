@@ -3,12 +3,17 @@ package edu.ntnu.stud;
 import edu.ntnu.stud.Trains.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.Scanner;
 
 class TrainDispatchSystem {
     private ArrayList<TrainDeparture> trainDepartures = new ArrayList<>();
     private String currentTime = "00:00";
     private Scanner scanner = new Scanner(System.in);
+
+    public ArrayList<TrainDeparture> getTrainDepartures(){
+        return trainDepartures;
+    }
 
     public void run() {
         while (true) {
@@ -70,28 +75,45 @@ class TrainDispatchSystem {
         System.out.print("Enter line: ");
         String line = scanner.nextLine();
         System.out.print("Enter train number: ");
-        String trainNumber = scanner.nextLine();
+        int trainNumber = scanner.nextInt();
         System.out.print("Enter destination: ");
         String destination = scanner.nextLine();
+        scanner.next();
 
         String[] timeParts = departureTime.split(":");
         int hours = Integer.parseInt(timeParts[0]);
         int minutes = Integer.parseInt(timeParts[1]);
+        boolean trainExists = false;
+        boolean check = true;
 
-        TrainDeparture newDeparture = new TrainDeparture(departureTime, line, trainNumber, destination);
         if (hours >= 24 || minutes >= 60) {
-            System.out.println("Invalid statement. Time cannot exceed 23:59, and hours above 23 or minutes above 59 is not accepted");}
-        else if (!trainDepartures.contains(newDeparture)) {
+            System.out.println("Invalid statement. Time cannot exceed 23:59, and hours above 23 or minutes above 59 is not accepted");
+
+        }
+        while (check){
+            for (TrainDeparture departure : getTrainDepartures()) {
+                if (departure.getTrainNumber() == trainNumber) {
+                    trainExists = true;
+                }
+            }
+            if (trainExists) {
+                System.out.println("Train with the same number already exists. Cannot add a duplicate.");
+            }
+            check = false;
+        }
+        if (trainExists == false) {
+            TrainDeparture newDeparture = new TrainDeparture(departureTime, line, trainNumber, destination);
             trainDepartures.add(newDeparture);
             System.out.println("Train departure added successfully.");
-        } else {
-            System.out.println("Train with the same number already exists. Cannot add a duplicate.");
+        }
+        else {
+            System.out.println();
         }
     }
 
     private void assignTrackToTrain() {
         System.out.print("Enter train number: ");
-        String trainNumber = scanner.nextLine();
+        int trainNumber = scanner.nextInt();
 
         TrainDeparture departure = findTrainByNumber(trainNumber);
 
@@ -108,7 +130,7 @@ class TrainDispatchSystem {
 
     private void addDelayToTrain() {
         System.out.print("Enter train number: ");
-        String trainNumber = scanner.nextLine();
+        int trainNumber = scanner.nextInt();
 
         TrainDeparture departure = findTrainByNumber(trainNumber);
 
@@ -124,7 +146,7 @@ class TrainDispatchSystem {
 
     private void searchByTrainNumber() {
         System.out.print("Enter train number: ");
-        String trainNumber = scanner.nextLine();
+        int trainNumber = scanner.nextInt();
 
         TrainDeparture departure = findTrainByNumber(trainNumber);
 
@@ -135,9 +157,9 @@ class TrainDispatchSystem {
         }
     }
 
-    private TrainDeparture findTrainByNumber(String trainNumber) {
+    private TrainDeparture findTrainByNumber(int trainNumber) {
         for (TrainDeparture departure : trainDepartures) {
-            if (departure.getTrainNumber().equals(trainNumber)) {
+            if (departure.getTrainNumber() == trainNumber) {
                 return departure;
             }
         }

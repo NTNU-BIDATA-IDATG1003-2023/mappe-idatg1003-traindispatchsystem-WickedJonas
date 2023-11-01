@@ -4,11 +4,11 @@ package edu.ntnu.stud.Trains;
 public class TrainDeparture {
     private String departureTime;
     private String line;
-    private String trainNumber;
+    private int trainNumber;
     private String destination;
     private int track;
 
-    public TrainDeparture(String departureTime, String line, String trainNumber, String destination) {
+    public TrainDeparture(String departureTime, String line, int trainNumber, String destination) {
         this.departureTime = departureTime;
         this.line = line;
         this.trainNumber = trainNumber;
@@ -28,7 +28,7 @@ public class TrainDeparture {
         return line;
     }
 
-    public String getTrainNumber() {
+    public int getTrainNumber() {
         return trainNumber;
     }
 
@@ -74,16 +74,4 @@ public class TrainDeparture {
         return String.format("%s %s %s %s %s", departureTime, line, trainNumber, destination, track == -1 ? "" : track);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        TrainDeparture that = (TrainDeparture) o;
-        return trainNumber.equals(that.trainNumber);
-    }
-
-    @Override
-    public int hashCode() {
-        return trainNumber.hashCode();
-    }
 }
