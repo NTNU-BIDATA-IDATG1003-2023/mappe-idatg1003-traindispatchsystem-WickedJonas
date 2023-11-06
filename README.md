@@ -5,7 +5,7 @@ STUDENT NAME = Jonas Ingebo
 STUDENT ID = "Your ID"
 
 Project description:
-
+Jeg smiler hver dag
 
 Project structure
 [//]: # (TODO: Describe the structure of your project here. How have you used packages in your structure. Where are all sourcefiles stored. Where are all JUnit-test classes stored. etc.)
