@@ -140,7 +140,7 @@ class TrainDispatchSystem {
             }
             check = false;
         }
-        if (trainExists == false) {
+        if (!trainExists) {
             TrainDepartures newDeparture = new TrainDepartures(departureTime, line, trainNumber, destination);
             trainDepartures.add(newDeparture);
             System.out.println("Train departure added successfully.");
