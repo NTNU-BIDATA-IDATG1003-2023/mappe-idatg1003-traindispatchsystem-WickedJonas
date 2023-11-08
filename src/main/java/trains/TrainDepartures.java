@@ -23,13 +23,14 @@ public class TrainDepartures {
     private int track;
 
     /**
-     * Konstruktør for TrainDepartures
-     * @param departureTime
-     * @param line
-     * @param trainNumber
-     * @param destination
+     * Constructs a TrainDepartures object with the specified details.
+     *
+     * @param departureTime The departure time in 'hh:mm' format.
+     * @param line The line name.
+     * @param trainNumber The train number.
+     * @param destination The destination name.
+     *
      */
-
     public TrainDepartures(String departureTime, String line, int trainNumber, String destination) {
         this.departureTime = departureTime;
         this.line = line;
@@ -67,8 +68,18 @@ public class TrainDepartures {
     }
 
     /**
-     * addDelay metoden legger til forsinkelse
-     * @param delay
+     * Adds a delay to the train's departure time.
+     *
+     * This method allows for the addition of a delay to the train's scheduled departure time.
+     * It takes a delay in 'hh:mm' format as input and updates the departure time accordingly.
+     * The method handles the rollover of minutes and hours, ensuring the time remains within
+     * valid boundaries (00:00 to 23:59).
+     *
+     * @param delay The delay in 'hh:mm' format to be added to the departure time.
+     *
+     * Example usage:
+     * TrainDepartures departure = new TrainDepartures("12:30", "Line A", 123, "Destination X");
+     * departure.addDelay("02:15"); // Adds a delay of 2 hours and 15 minutes to the departure time.
      */
 
     public void addDelay(String delay) {
@@ -103,8 +114,17 @@ public class TrainDepartures {
     }
 
     /**
-     * getDetails metoden returnerer detaljene
-     * @return
+     * Returns a formatted string containing the details of the train departure.
+     *
+     * This method constructs and returns a formatted string that includes the departure time,
+     * line, train number, destination, and, if available, the assigned track. If no track is
+     * assigned (track == -1), it is represented as an empty string.
+     *
+     * @return A string containing the details of the train departure.
+     *
+     * Example usage:
+     * TrainDepartures departure = new TrainDepartures("12:30", "Line A", 123, "Destination X");
+     * String details = departure.getDetails();
      */
 
     public String getDetails() {
