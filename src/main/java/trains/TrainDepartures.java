@@ -73,14 +73,17 @@ public class TrainDepartures {
 
     public void addDelay(String delay) {
 
+        // Split the departure time into hours and minutes
         String[] timeParts = departureTime.split(":");
         int hours = Integer.parseInt(timeParts[0]);
         int minutes = Integer.parseInt(timeParts[1]);
 
+        // Split the delay into hours and minutes
         String[] delayParts = delay.split(":");
         int delayHours = Integer.parseInt(delayParts[0]);
         int delayMinutes = Integer.parseInt(delayParts[1]);
 
+        // Add the delay to the departure time
         hours += delayHours;
         minutes += delayMinutes;
 
@@ -90,10 +93,12 @@ public class TrainDepartures {
             hours++;
         }
 
+        // Handle rollover to the next day
         if (hours >= 24) {
             hours = hours % 24;
         }
 
+        // Format the new departure time
         this.departureTime = String.format("%02d:%02d", hours, minutes);
     }
 
@@ -103,6 +108,9 @@ public class TrainDepartures {
      */
 
     public String getDetails() {
+        /**
+         * String.format() metoden returnerer en formatert Stringg
+         */
         return String.format("%s %s %s %s %s", departureTime, line, trainNumber, destination, track == -1 ? "" : track);
     }
 
