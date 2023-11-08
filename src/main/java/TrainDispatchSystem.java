@@ -21,7 +21,6 @@ class TrainDispatchSystem {
     private String currentTime;
     private Scanner input;
 
-
     /**
      * Constructor for TrainDispatchSystem
      */
@@ -108,45 +107,56 @@ class TrainDispatchSystem {
      */
 
     private void addNewTrainDeparture() {
-        System.out.print("Enter departure time (hh:mm): ");
-        String departureTime = input.nextLine();
+        boolean validTimeFormat = false;
+        String departureTime = "";
+
+        while (!validTimeFormat) {
+            System.out.print("Enter departure time (hh:mm): ");
+            departureTime = input.nextLine();
+            if (isValidTimeFormat(departureTime)) {
+                validTimeFormat = true;
+            } else {
+                System.out.println("Invalid departure time format. Use 'hh:mm' format.");
+            }
+        }
+
         System.out.print("Enter line: ");
         String line = input.nextLine();
+
         System.out.print("Enter train number: ");
         int trainNumber = input.nextInt();
         input.nextLine();
+
         System.out.print("Enter destination: ");
         String destination = input.nextLine();
 
-
+        // Validate time boundaries
         String[] timeParts = departureTime.split(":");
         int hours = Integer.parseInt(timeParts[0]);
         int minutes = Integer.parseInt(timeParts[1]);
-        boolean trainExists = false;
-        boolean check = true;
 
         if (hours >= 24 || minutes >= 60) {
-            System.out.println("Invalid statement. Time cannot exceed 23:59, and hours above 23 or minutes above 59 is not accepted");
+            System.out.println("Invalid time. Time cannot exceed 23:59, and hours above 23 or minutes above 59 are not accepted");
+            return; // Exit the method if the time is invalid.
+        }
 
-        }
-        while (check){
-            for (TrainDepartures departure : trainDepartures) {
-                if (departure.getTrainNumber() == trainNumber) {
-                    trainExists = true;
-                }
+        boolean trainExists = false;
+
+        // Check if a train with the same number already exists
+        for (TrainDepartures departure : trainDepartures) {
+            if (departure.getTrainNumber() == trainNumber) {
+                trainExists = true;
+                break;
             }
-            if (trainExists) {
-                System.out.println("Train with the same number already exists. Cannot add a duplicate.");
-            }
-            check = false;
         }
-        if (!trainExists) {
+
+        if (trainExists) {
+            System.out.println("Train with the same number already exists. Cannot add a duplicate.");
+        } else {
             TrainDepartures newDeparture = new TrainDepartures(departureTime, line, trainNumber, destination);
             trainDepartures.add(newDeparture);
             System.out.println("Train departure added successfully.");
-        }
-        else {
-            System.out.println();
+            input.nextLine();
         }
     }
 
@@ -167,6 +177,7 @@ class TrainDispatchSystem {
             input.nextLine();
             departure.setTrack(track);
             System.out.println("Track assigned to the train successfully.");
+            input.nextLine();
 
         }
         else{
@@ -257,6 +268,9 @@ class TrainDispatchSystem {
             System.out.println("New time cannot be earlier than the current time.");
         }
     }
-}
 
-// Commit test #1
+    private boolean isValidTimeFormat(String time) {
+        // Use a regular expression to validate the input format (hh:mm)
+        return time.matches("\\d{2}:\\d{2}");
+    }
+}
