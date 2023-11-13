@@ -31,6 +31,7 @@ public class TrainDepartures {
      * @param destination The destination name.
      *
      */
+
     public TrainDepartures(String departureTime, String line, int trainNumber, String destination) {
         this.departureTime = departureTime;
         this.line = line;
@@ -43,24 +44,12 @@ public class TrainDepartures {
         return departureTime;
     }
 
-    public void setDepartureTime(String departureTime) {
-        this.departureTime = departureTime;
-    }
-
-    public String getLine() {
-        return line;
-    }
-
     public int getTrainNumber() {
         return trainNumber;
     }
 
     public String getDestination() {
         return destination;
-    }
-
-    public int getTrack() {
-        return track;
     }
 
     public void setTrack(int track) {
@@ -128,9 +117,6 @@ public class TrainDepartures {
      */
 
     public String getDetails() {
-        /**
-         * String.format() metoden returnerer en formatert Stringg
-         */
         return String.format("%s %s %s %s %s", departureTime, line, trainNumber, destination, track == -1 ? "" : track);
     }
 

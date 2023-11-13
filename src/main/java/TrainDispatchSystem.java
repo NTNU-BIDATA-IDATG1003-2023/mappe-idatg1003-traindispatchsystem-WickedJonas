@@ -60,7 +60,7 @@ class TrainDispatchSystem {
     public void run() {
         while (true) {
             displayMenu();
-            int choice = input.nextInt();
+            int choice = intInputChecker();
             input.nextLine();
             handleUserChoice(choice);
         }
@@ -184,7 +184,8 @@ class TrainDispatchSystem {
         System.out.print("Enter line: ");
         String line = input.nextLine();
 
-        int trainNumber = checkTrainNumber();
+        System.out.println("Enter train number: ");
+        int trainNumber = intInputChecker();
         input.nextLine();
 
         System.out.print("Enter destination: ");
@@ -230,14 +231,16 @@ class TrainDispatchSystem {
      */
 
     private void assignTrackToTrain() {
-        int trainNumber = checkTrainNumber();
+
+        System.out.print("Enter train number: ");
+        int trainNumber = intInputChecker();
 
         TrainDepartures departure = findTrainByNumber(trainNumber);
 
         if (departure != null)
         {
             System.out.print("Enter track number: ");
-            int track = checkTrackNumber();
+            int track = intInputChecker();
             input.nextLine();
             departure.setTrack(track);
             System.out.println("Track assigned to the train successfully.");
@@ -264,7 +267,9 @@ class TrainDispatchSystem {
      */
 
     private void addDelayToTrain() {
-        int trainNumber = checkTrainNumber();
+
+        System.out.print("Enter train number: ");
+        int trainNumber = intInputChecker();
         input.nextLine();
 
         TrainDepartures departure = findTrainByNumber(trainNumber);
@@ -294,7 +299,9 @@ class TrainDispatchSystem {
      */
 
     private void searchByTrainNumber() {
-        int trainNumber = checkTrainNumber();
+
+        System.out.print("Enter train number: ");
+        int trainNumber = intInputChecker();
 
         TrainDepartures departure = findTrainByNumber(trainNumber);
 
@@ -410,42 +417,26 @@ class TrainDispatchSystem {
             if (isValidTimeFormat(departureTime)) {
                 validTimeFormat = true;
             } else {
-                System.out.println("Invalid departure time format. Use 'hh:mm' format.");
+                System.out.println("Invalid departure time format. Use 'hh:mm' format: ");
             }
         }
         return departureTime;
     }
 
-    private int checkTrainNumber() {
-        boolean validTrainNumber = false;
-        int trainNumber = 0;
-        while (!validTrainNumber) {
-            System.out.print("Enter train number: ");
-            try {
-                trainNumber = input.nextInt();
-                validTrainNumber = true;
-            } catch (Exception e) {
-                System.out.println("Invalid train number. Must only contain numbers");
-                input.nextLine();
-            }
-        }
-        return trainNumber;
-    }
 
-    private int checkTrackNumber() {
-        boolean validTrackNumber = false;
-        int trackNumber = 0;
-        while (!validTrackNumber) {
-            System.out.print("Enter track number: ");
+    private int intInputChecker() {
+        boolean validIntInput = false;
+        int intInput = 0;
+        while (!validIntInput) {
             try {
-                trackNumber = input.nextInt();
-                validTrackNumber = true;
+                intInput = input.nextInt();
+                validIntInput = true;
             } catch (Exception e) {
-                System.out.println("Invalid track number. Must only contain numbers");
+                System.out.println("Invalid input. Must only contain numbers");
                 input.nextLine();
             }
         }
-        return trackNumber;
+        return intInput;
     }
 
 }
