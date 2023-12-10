@@ -29,13 +29,13 @@ public class TrainDepartures {
 
   /**
    * Constructs a TrainDepartures object with the specified details.
+   * Tracks are not assigned by default, and should be assigned using the setTrack() method.
    *
    * @param departureTime The departure time in 'hh:mm' format.
    * @param line          The line name.
    * @param trainNumber   The train number.
    * @param destination   The destination name.
    */
-
   public TrainDepartures(String departureTime, String line, int trainNumber, String destination) {
     this.departureTime = departureTime;
     this.line = line;
@@ -82,4 +82,7 @@ public class TrainDepartures {
     return String.format("%s %s %s %s %s", departureTime, line, trainNumber, destination, track == -1 ? "" : track);
   }
 
+  public String getTrack() {
+    return track == -1 ? "" : "Track is " + (track);
+  }
 }

@@ -7,7 +7,7 @@ import utility.Clock;
 
 /**
  * <p>
- * TrainDispatchSystem class, used for the main system and administration of the train departures.
+ * TrainDispatchSystem class, used for the main system and responsible for administration of the train departures and the UI.
  * </p>
  *
  * @author Jonas Ingebo, BIDATA 1
@@ -172,6 +172,7 @@ class TrainDispatchSystem {
           .filter(d -> d.getDepartureTime().compareTo(clock.getCurrentTime()) > 0)
           .map(TrainDepartures::getDetails)
           .forEach(System.out::println);
+      System.out.println("If no trains are displayed, there are no upcoming departures.");
       input.nextLine();
     }
 
@@ -186,7 +187,8 @@ class TrainDispatchSystem {
    * and uniqueness of the train number before adding the new departure.
    * <br>
    * If the time format is invalid or the train number is a duplicate, the method provides
-   * error message and exits. Otherwise, it adds the new train departure to the system through the checkNewTrainDeparture method.
+   * error message and exits.
+   * Otherwise, it adds the new train departure to the system through the checkNewTrainDeparture method.
    * <br>
    * Example usage:
    * TrainDispatchSystem system = new TrainDispatchSystem();
@@ -198,13 +200,13 @@ class TrainDispatchSystem {
     String departureTime = checker.checkInputTime();
 
     System.out.print("Enter line: ");
-    String line = input.nextLine();
+    String line = checker.stringInputChecker();
 
     System.out.println("Enter train number: ");
     int trainNumber = checker.intInputChecker();
 
     System.out.print("Enter destination: ");
-    String destination = input.nextLine();
+    String destination = checker.stringInputChecker();
 
     String[] timeParts = departureTime.split(":");
     int hours = Integer.parseInt(timeParts[0]);
@@ -233,7 +235,7 @@ class TrainDispatchSystem {
     TrainDepartures departure = findTrainByNumber(trainNumber);
 
     if (departure != null) {
-      System.out.print("Enter track number: ");
+      System.out.print("Enter new track number: ");
       int track = checker.intInputChecker();
       departure.setTrack(track);
       System.out.println("Track assigned to the train successfully.");
@@ -267,7 +269,8 @@ class TrainDispatchSystem {
       System.out.print("Enter delay (hh:mm): ");
       String delay = checker.checkInputTime();
       departure.addDelay(clock, delay, departure.getDepartureTime());
-      System.out.println("Delay added to the train. New departure time: " + departure.getDepartureTime());
+      System.out.println("Delay added to the train. New departure time: "
+          + departure.getDepartureTime());
       input.nextLine();
     } else {
       System.err.println("Train not found.");
@@ -295,7 +298,7 @@ class TrainDispatchSystem {
     TrainDepartures departure = findTrainByNumber(trainNumber);
 
     if (departure != null) {
-      System.out.println("Train Found: " + departure.getDetails());
+      System.out.println("Train found: " + departure.getDetails());
       input.nextLine();
     } else {
       System.err.println("Train not found.");
@@ -348,7 +351,7 @@ class TrainDispatchSystem {
   private void searchByDestination() {
 
     System.out.print("Enter destination: ");
-    String destination = input.nextLine();
+    String destination = checker.stringInputChecker();
     System.out.println("Train Departures to " + destination + ":");
 
     for (TrainDepartures departure : trainDepartures) {
@@ -362,6 +365,22 @@ class TrainDispatchSystem {
 
   }
 
+  /**
+   * Checks if a train with the given train number already exists.
+   * If not, adds a new train departure with the specified details.
+   * Displays error messages if a duplicate train number is found or if the provided
+   * hours and minutes exceed valid time limits.
+   * <br>
+   * Example usage:
+   * isTrainUnique(123, 14, 30, "15:00", "Red Line", "Destination A");
+   *
+   * @param trainNumber    The number of the train to be checked for uniqueness.
+   * @param hours          The hours component of the departure time.
+   * @param minutes        The minutes component of the departure time.
+   * @param departureTime  The formatted departure time (e.g., "15:00").
+   * @param line           The train line associated with the departure.
+   * @param destination    The destination of the train departure.
+   */
   private void isTrainUnique(int trainNumber, int hours, int minutes, String departureTime, String line, String destination) {
 
     TrainDepartures departure = findTrainByNumber(trainNumber);
@@ -381,6 +400,22 @@ class TrainDispatchSystem {
 
   }
 
+  /**
+   * Asks the user for confirmation before adding a new train departure.
+   * If the user confirms (by entering 'y' or 'Y'), it checks for the uniqueness of the train
+   * and adds the departure if it's unique. If the user declines, it informs that the train
+   * departure was not added.
+   * <br>
+   * Example usage:
+   * askUser(123, 14, 30, "15:00", "Red Line", "Destination A");
+   *
+   * @param trainNumber    The number of the train to be added.
+   * @param hours          The hours component of the departure time.
+   * @param minutes        The minutes component of the departure time.
+   * @param departureTime  The formatted departure time (e.g., "15:00").
+   * @param line           The train line associated with the departure.
+   * @param destination    The destination of the train departure.
+   */
   private void askUser(int trainNumber, int hours, int minutes, String departureTime, String line, String destination) {
     System.out.println("Are you sure you want to add this train departure? (y/n)");
 

@@ -18,6 +18,15 @@ public class Clock {
   private String currentTime;
 
 
+  /**
+   * Constructor for the Clock class.
+   * Initializes the clock input scanner,
+   * a Checker instance,
+   * and sets the initial current time to "00:00".
+   * <br>
+   * Example usage:
+   * Clock clock = new Clock();
+   */
   public Clock() {
 
     clockInput = new Scanner(System.in);
@@ -110,17 +119,23 @@ public class Clock {
     System.out.print("Enter new current time (hh:mm): ");
     boolean validTimeChange = false;
     String newTime = "";
+    int givenHours;
+    int givenMinutes;
     while (!validTimeChange) {
 
       String givenTime = checker.checkInputTime();
 
-      if (givenTime.compareTo(currentTime) >= 0) {
+      String[] timeParts = givenTime.split(":");
+      givenHours = Integer.parseInt(timeParts[0]);
+      givenMinutes = Integer.parseInt(timeParts[1]);
+
+      if (givenTime.compareTo(currentTime) >= 0 && givenMinutes < 60 && givenHours < 24) {
         newTime = givenTime;
         validTimeChange = true;
         System.out.println("Current time updated to " + newTime);
         clockInput.nextLine();
       } else {
-        System.err.println("Cannot be earlier than current time. Please try again:");
+        System.err.println("Must be a later time than the current time, and hours smaller than 24 and minutes smaller than 60");
       }
 
     }

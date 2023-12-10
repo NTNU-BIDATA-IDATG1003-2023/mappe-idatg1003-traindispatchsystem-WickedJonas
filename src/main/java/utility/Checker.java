@@ -40,7 +40,16 @@ public class Checker {
     return time.matches("\\d{2}:\\d{2}");
   }
 
-
+  /**
+   * Validates and retrieves a time input from the user in the 'hh:mm' format.
+   * This method prompts the user to input a time and continues to ask for input
+   * until a valid time format is provided ('hh:mm'). It returns the validated time.
+   * <br>
+   * Example usage:
+   * String userTime = checkInputTime();
+   *
+   * @return The validated time input provided by the user in the 'hh:mm' format.
+   */
   public String checkInputTime() {
 
     boolean validTimeFormat = false;
@@ -53,7 +62,7 @@ public class Checker {
       if (isValidTimeFormat(departureTime)) {
         validTimeFormat = true;
       } else {
-        System.err.println("Invalid departure time. Use 'hh:mm' format: ");
+        System.err.println("Only numbers are accepted. Use 'hh:mm' format: ");
       }
 
     }
@@ -62,6 +71,16 @@ public class Checker {
 
   }
 
+  /**
+   * Validates and retrieves an integer input from the user.
+   * This method prompts the user to input an integer and continues to ask for input
+   * until a valid integer is provided. It returns the validated integer.
+   * <br>
+   * Example usage:
+   * int userInteger = intInputChecker();
+   *
+   * @return The validated integer input provided by the user.
+   */
   public int intInputChecker() {
 
     boolean validIntInput = false;
@@ -73,7 +92,7 @@ public class Checker {
         validIntInput = true;
         input.nextLine();
       } catch (Exception e) {
-        System.err.println("Invalid input. Must only contain numbers");
+        System.err.println("Must only contain numbers");
         input.nextLine();
       }
 
@@ -81,6 +100,16 @@ public class Checker {
     return intInput;
   }
 
+  /**
+   * Validates and retrieves an integer input within the range of 1-9 from the user.
+   * This method prompts the user to input an integer and continues to ask for input
+   * until a valid integer within the specified range is provided. It returns the validated integer.
+   * <br>
+   * Example usage:
+   * int userChoice = choiceChecker();
+   *
+   * @return The validated integer input provided by the user.
+   */
   public int choiceChecker() {
 
     boolean validIntInput = false;
@@ -103,6 +132,32 @@ public class Checker {
 
     }
     return intInput;
+  }
+
+  /**
+   * Validates and retrieves a non-empty string input from the user.
+   * This method prompts the user to input a string and continues to ask for input
+   * until a non-empty string is provided. It returns the validated string.
+   * <br>
+   * Example usage:
+   * String userInput = stringInputChecker();
+   *
+   * @return The non-empty string input provided by the user.
+   */
+  public String stringInputChecker() {
+    boolean validStringInput = false;
+    String stringInput = "";
+    while (!validStringInput) {
+      stringInput = input.nextLine();
+      if (!stringInput.isEmpty()) {
+        validStringInput = true;
+      } else {
+        System.err.println("Cannot be empty. Please try again.");
+      }
+    }
+
+    return stringInput;
+
   }
 
 }
