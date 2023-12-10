@@ -1,14 +1,14 @@
 Portfolio project IDATA1003 - 2023
-This file uses Mark Down syntax. For more information see here.
+[//]:
 
-STUDENT NAME = Jonas Ingebo
-STUDENT ID = 107014
+- STUDENT NAME = Jonas Ingebo
+- STUDENT ID = 107014
 
 Project description:
-[//]: # 
-Project consists of a program that is used to manage and display train departures over the course of a day.
-The program is used to create new train departures, and to display the train departures in a user friendly way.
-The program is used in a terminal, and the user is guided through the process of creating new train departures.
+[//]:
+- Project consists of a program that is used to manage and display train departures over the course of a day.
+- The program is used to create new train departures, and to display the train departures in a user friendly way.
+- The program is used in a terminal, and the user is guided through the process of creating new train departures.
 
 Project structure:
 [//]: 
@@ -24,7 +24,8 @@ Project structure:
 - `Checker` contains the methods for checking user input.
 
 Link to repository:
-[//]: https://github.com/NTNU-BIDATA-IDATG1003-2023/mappe-idatg1003-traindispatchsystem-WickedJonas.git
+[//]: 
+- https://github.com/NTNU-BIDATA-IDATG1003-2023/mappe-idatg1003-traindispatchsystem-WickedJonas.git
 
 
 How to run the project:
